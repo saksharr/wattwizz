@@ -1,0 +1,21 @@
+
+venv/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+
+mlruns/
+*.log
+
+.env
+# MLflow database
+mlflow.db
+mlflow.db-journal
+
+# Original raw dataset
+data/raw/
+
+# Temporary files
+.DS_Store

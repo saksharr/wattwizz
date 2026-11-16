@@ -1,0 +1,11 @@
+
+venv/
+.venv/
+__pycache__/
+.pytest_cache/
+.git/
+.mlflow/
+*.pyc
+.DS_Store
+data/raw/
+data/processed/

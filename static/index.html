@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WattWise | Electricity Insights</title>
+
+<style>
+:root {
+    --green: #315c43;
+    --green-light: #e3ede3;
+    --green-dark: #244632;
+    --beige: #f5f1e7;
+    --cream: #fffdf8;
+    --text: #28372e;
+    --muted: #788176;
+    --border: #e5e2d7;
+    --red: #a34b3d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--beige);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+header {
+    background: var(--green-dark);
+    color: white;
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #c5d9b9;
+}
+
+.header-tag {
+    font-size: 12px;
+    color: #d8e5d3;
+    background: #ffffff18;
+    padding: 8px 13px;
+    border-radius: 20px;
+}
+
+main {
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 0 22px;
+}
+
+.intro {
+    margin-bottom: 28px;
+}
+
+.intro h1 {
+    font-size: 32px;
+    margin-bottom: 9px;
+    letter-spacing: -1px;
+}
+
+.intro p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 22px;
+}
+
+.card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 25px;
+    box-shadow: 0 5px 18px #34452d0a;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 650;
+    margin: 17px 0 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fffefa;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px #315c4315;
+}
+
+textarea {
+    min-height: 155px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 7px;
+    line-height: 1.5;
+}
+
+button {
+    border: none;
+    border-radius: 9px;
+    padding: 13px 18px;
+    font-weight: 650;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.primary {
+    background: var(--green);
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.primary:hover {
+    background: var(--green-dark);
+}
+
+.secondary {
+    background: var(--green-light);
+    color: var(--green-dark);
+    margin-top: 10px;
+    width: 100%;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.status {
+    display: none;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 9px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.error {
+    display: block;
+    color: #873a30;
+    background: #f8e8e3;
+}
+
+.success {
+    display: block;
+    color: var(--green-dark);
+    background: var(--green-light);
+}
+
+.result-card {
+    background: var(--green);
+    color: white;
+    border-radius: 14px;
+    padding: 23px;
+    margin-top: 18px;
+}
+
+.result-card .result-label {
+    color: #d5e4d1;
+    font-size: 13px;
+}
+
+.result-value {
+    font-size: 42px;
+    font-weight: 750;
+    margin: 9px 0;
+    letter-spacing: -1px;
+}
+
+.result-value span {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.result-time {
+    font-size: 12px;
+    color: #d5e4d1;
+}
+
+.metric {
+    border-bottom: 1px solid var(--border);
+    padding: 17px 0;
+}
+
+.metric:last-child {
+    border-bottom: none;
+}
+
+.metric-title {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.suggestions {
+    margin-top: 22px;
+}
+
+.suggestions h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.suggestion {
+    background: var(--green-light);
+    padding: 13px;
+    border-radius: 9px;
+    margin-bottom: 9px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.placeholder {
+    color: var(--muted);
+    text-align: center;
+    padding: 50px 12px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 30px 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .intro h1 {
+        font-size: 26px;
+    }
+
+    header {
+        padding: 18px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Watt<span>Wise.</span></div>
+    <div class="header-tag">AI Electricity Insights</div>
+</header>
+
+<main>
+
+    <section class="intro">
+        <h1>Electricity Consumption Dashboard</h1>
+        <p>
+            Predict your next-hour electricity consumption using
+            machine learning and explore intelligent usage insights.
+        </p>
+    </section>
+
+    <div class="grid">
+
+        <!-- INPUT SECTION -->
+        <section class="card">
+
+            <h2>Consumption History</h2>
+
+            <p class="subtitle">
+                Provide your previous 168 hourly electricity readings
+                to generate the next-hour prediction.
+            </p>
+
+            <label for="history">
+                Hourly readings (kW)
+            </label>
+
+            <textarea id="history"
+                placeholder="Enter 168 readings separated by commas or new lines..."></textarea>
+
+            <p class="hint">
+                Enter at least 168 non-negative numerical readings,
+                ordered from oldest to newest.
+            </p>
+
+            <button class="secondary" onclick="fillDemo()">
+                Fill demo data
+            </button>
+
+            <label for="timestamp">
+                Timestamp of latest reading
+            </label>
+
+            <input type="datetime-local" id="timestamp">
+
+            <p class="hint">
+                Select the date and time of your most recent hourly reading.
+            </p>
+
+            <button class="primary" id="predictBtn" onclick="predict()">
+                Generate Prediction →
+            </button>
+
+            <div id="status" class="status"></div>
+
+        </section>
+
+
+        <!-- RESULT SECTION -->
+        <section class="card">
+
+            <h2>Prediction Results</h2>
+
+            <p class="subtitle">
+                Your machine learning prediction and consumption insights.
+            </p>
+
+            <div id="placeholder" class="placeholder">
+                <div style="font-size:38px; margin-bottom:12px;">⌁</div>
+                Your prediction will appear here.
+                <br>
+                Enter your electricity history to get started.
+            </div>
+
+            <div id="results" class="hidden">
+
+                <div class="result-card">
+
+                    <div class="result-label">
+                        Predicted next-hour consumption
+                    </div>
+
+                    <div class="result-value">
+                        <span id="prediction">--</span>
+                        <span>kW</span>
+                    </div>
+
+                    <div class="result-time" id="predictionTime">
+                    </div>
+
+                </div>
+
+                <div class="metric">
+                    <div class="metric-title">
+                        Recent 24-hour average
+                    </div>
+                    <div class="metric-value">
+                        <span id="average">--</span> kW
+                    </div>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-title">
+                        Model used
+                    </div>
+                    <div class="metric-value" id="model">
+                        --
+                    </div>
+                </div>
+
+                <div class="suggestions">
+                    <h3>Smart Suggestions</h3>
+                    <div id="suggestionList"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<footer>
+    WattWise · Electricity Consumption Prediction System
+    <br><br>
+    Powered by Machine Learning and FastAPI
+</footer>
+
+
+<script>
+
+function fillDemo() {
+
+    // DEMONSTRATION DATA ONLY — not actual household readings
+    const readings = [];
+
+    for (let i = 0; i < 168; i++) {
+
+        const hour = i % 24;
+
+        const dailyPattern =
+            1.5 + 0.7 * Math.sin((hour - 8) * Math.PI / 12);
+
+        const variation =
+            0.15 * Math.sin(i * 0.7);
+
+        readings.push(
+            Math.max(0.1, dailyPattern + variation).toFixed(3)
+        );
+    }
+
+    document.getElementById("history").value =
+        readings.join(", ");
+
+    const now = new Date();
+    now.setMinutes(0, 0, 0);
+
+    const localDate = new Date(
+        now.getTime() - now.getTimezoneOffset() * 60000
+    );
+
+    document.getElementById("timestamp").value =
+        localDate.toISOString().slice(0, 16);
+}
+
+
+async function predict() {
+
+    const historyText =
+        document.getElementById("history").value.trim();
+
+    const timestamp =
+        document.getElementById("timestamp").value;
+
+    const status =
+        document.getElementById("status");
+
+    const button =
+        document.getElementById("predictBtn");
+
+    status.className = "status";
+    status.style.display = "none";
+
+    // Parse comma-separated or newline-separated values
+    const history = historyText
+        .split(/[\s,;]+/)
+        .filter(value => value.length > 0)
+        .map(Number);
+
+    if (history.length < 168) {
+        showError(
+            "Please enter at least 168 hourly readings."
+        );
+        return;
+    }
+
+    if (history.some(value =>
+        !Number.isFinite(value) || value < 0
+    )) {
+        showError(
+            "Readings must be valid, non-negative numbers."
+        );
+        return;
+    }
+
+    if (!timestamp) {
+        showError(
+            "Please select the timestamp of your latest reading."
+        );
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Generating prediction...";
+
+    try {
+
+        const response = await fetch("/predict", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                history: history,
+                last_timestamp: timestamp
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            const details = Array.isArray(data.detail)
+                ? data.detail.map(item => item.msg).join(", ")
+                : data.detail || "Prediction failed.";
+
+            throw new Error(details);
+        }
+
+        displayResults(data);
+
+        status.textContent = "Prediction generated successfully.";
+        status.className = "status success";
+
+    } catch (error) {
+
+        showError(error.message);
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Generate Prediction →";
+
+    }
+
+}
+
+
+function displayResults(data) {
+
+    document.getElementById("placeholder").classList.add("hidden");
+
+    document.getElementById("results").classList.remove("hidden");
+
+    document.getElementById("prediction").textContent =
+        data.predicted_consumption_kw;
+
+    document.getElementById("average").textContent =
+        data.recent_24_hour_average_kw;
+
+    document.getElementById("model").textContent =
+        data.model_used;
+
+    document.getElementById("predictionTime").textContent =
+        "Prediction for: " + data.prediction_for;
+
+    const list =
+        document.getElementById("suggestionList");
+
+    list.innerHTML = "";
+
+    data.suggestions.forEach(suggestion => {
+
+        const item = document.createElement("div");
+
+        item.className = "suggestion";
+        item.textContent = "✓ " + suggestion;
+
+        list.appendChild(item);
+
+    });
+
+}
+
+
+function showError(message) {
+
+    const status =
+        document.getElementById("status");
+
+    status.textContent = message;
+    status.className = "status error";
+
+}
+
+</script>
+
+</body>
+</html>
