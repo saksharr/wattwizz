@@ -1,6 +1,6 @@
-# ⚡ WattWise – Electricity Consumption Prediction
+# ⚡ WattWizz – Electricity Consumption Prediction
 
-An AI/ML-powered web application that predicts future household electricity consumption using historical electricity usage data. WattWise uses machine learning to forecast the next hour's consumption and provides insights to help users understand their energy usage.
+An AI/ML-powered web application that predicts future household electricity consumption using historical electricity usage data. WattWizz uses machine learning to forecast the next hour's consumption and provides insights to help users understand their energy usage.
 
 ## 🌐 Project Links
 
