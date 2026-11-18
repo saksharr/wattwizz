@@ -5,16 +5,14 @@ WORKDIR /app
 
 # Install serving dependencies
 COPY requirements-serve.txt .
-
 RUN pip install --no-cache-dir -r requirements-serve.txt
 
 # Copy application files
 COPY app.py .
 COPY static/ static/
 COPY model/ model/
-COPY logs/ logs/
 
-# Create logs directory if it does not exist
+# Create logs directory
 RUN mkdir -p logs
 
 # Expose application port
